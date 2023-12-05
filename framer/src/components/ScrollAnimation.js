@@ -1,15 +1,24 @@
 import {motion} from "framer-motion";
-import {useScroll} from "framer-motion";
+import {useScroll, useSpring, useTransform}  from "framer-motion";
 import React from "react";
 import styled from "styled-components";
 
 const ScrollAnimations = () => {
   const {scrollYProgress} = useScroll();
+  const scaleX = useSpring(scrollYProgress)
+
+  const background = useTransform(scrollYProgress,
+    [0 , 1],
+    ["rgb(86, 1, 245)" , "rgb(1, 245, 13)"]
+    )
+
 
   return (
     <Container>
       <motion.div className= "div1"
-      style = {{scaleX: scrollYProgress}}
+      style = {{scaleX,
+      background,
+    }}
       />
       <div className="div2">
         <p>
@@ -152,7 +161,6 @@ const ScrollAnimations = () => {
 const Container = styled.div`
 padding: 1.2rem;
 .div1{
-  background: blue;
   transform-origin: left;
   position: sticky;
   top: 0;
